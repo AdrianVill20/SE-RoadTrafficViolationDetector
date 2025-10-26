@@ -1,6 +1,7 @@
 # Traffic Violation Detection System
 from datetime import datetime
 
+#camera system
 class CameraSystem:
     def __init__(self, cameraID, location, status="Active"):
         self.cameraID = cameraID
@@ -18,7 +19,7 @@ class CameraSystem:
 
     def sendData(self):
         print(f"[Camera {self.cameraID}] Sending data to database manager.")
-
+#violation record 
 class ViolationRecord:
     def __init__(self, recordID, vehicleNumber, violationType, dateTime, location, cameraID):
         self.recordID = recordID
@@ -27,3 +28,21 @@ class ViolationRecord:
         self.dateTime = dateTime
         self.location = location
         self.cameraID = cameraID
+    def createRecord(self):
+        print(f"[Record {self.recordID}] Created for vehicle {self.vehicleNumber}.")
+    
+    def getRecordDetails(self):
+        return f"{self.dateTime} | {self.vehicleNumber} | {self.violationType} | {self.location}"
+
+    def updateStatus(self):
+        print(f"[Record {self.recordID}] Status updated.")
+#vehicle 
+class Vehicle:
+    def __init__(self, plateNumber, ownerName, vehicleType):
+        self.plateNumber = plateNumber
+        self.ownerName = ownerName
+        self.vehicleType = vehicleType
+
+    def getVehicleInfo(self):
+        return f"{self.plateNumber} ({self.vehicleType}) owned by {self.ownerName}"
+
