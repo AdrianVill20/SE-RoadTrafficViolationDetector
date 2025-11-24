@@ -38,12 +38,6 @@ Or
 ```bash
 py -3.10 -m venv tfenv   
 ```
-After that, check the version
-```bash
-python --version
-```
-You should see Python 3.11.x or 3.10.x
-
 ### 3. Activate the Environment
 Windows (PowerShell):
 ```bash
@@ -53,7 +47,11 @@ macOS/Linux:
 ```bash
 source tfenv/bin/activate
 ```
-
+After that check the python version
+```bash
+python --version
+```
+You should see Python 3.11.x or 3.10.x
 ### 4. Install Dependencies
 Install the required libraries for TensorFlow and OpenCV.
 ```bash
