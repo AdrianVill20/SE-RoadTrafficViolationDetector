@@ -32,7 +32,11 @@ cd SE-RoadTrafficViolationDetector
 #### 2. Create a Virtual Environment
 It’s recommended to isolate dependencies using a virtual environment.
 ```bash
-python3.10 -m venv tfenv
+py -3.11 -m venv tfenv   
+```
+Or
+```bash
+py -3.10 -m venv tfenv   
 ```
 After that, check the version
 ```bash
