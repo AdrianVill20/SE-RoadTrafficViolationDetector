@@ -31,7 +31,6 @@ cd SE-RoadTrafficViolationDetector
 
 #### 2. Create a Virtual Environment
 It’s recommended to isolate dependencies using a virtual environment.
-
 ```bash
 python3.10 -m venv tfenv
 ```
@@ -44,7 +43,7 @@ You should see Python 3.11.x or 3.10.x
 ### 3. Activate the Environment
 Windows (PowerShell):
 ```bash
-py -3.11 -m venv tfenv
+ .\tfenv\Scripts\Activate.ps1
 ```
 macOS/Linux:
 ```bash
