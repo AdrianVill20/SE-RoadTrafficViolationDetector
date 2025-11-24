@@ -33,13 +33,13 @@ cd SE-RoadTrafficViolationDetector
 It’s recommended to isolate dependencies using a virtual environment.
 
 ```bash
-python -m venv tfenv
+python3.10 -m venv tfenv
 ```
 
 ### 3. Activate the Environment
 Windows (PowerShell):
 ```bash
-tfenv\Scripts\activate
+python3.10 -m venv tfenv
 ```
 macOS/Linux:
 ```bash
@@ -60,6 +60,7 @@ Verify the installations:
 ```bash
 python -c "import cv2; print('OpenCV', cv2.__version__)"
 python -c "import tensorflow as tf; print('TensorFlow', tf.__version__)"
+python -c "import tensorflow_hub as hub; print('TensorFlow Hub', hub.__version__)"
 ```
 
 ## Running the Object Detection Script
