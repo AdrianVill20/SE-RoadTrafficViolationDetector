@@ -24,7 +24,7 @@ Currently, the project is configured to **initialize and display real-time objec
 
 #### 1. Clone or Download the Repository  
 ```bash
-git clone https://github.com/yourusername/SE-RoadTrafficViolationDetector.git
+git clone [https://github.com/yourusername/SE-RoadTrafficViolationDetector.git](https://github.com/AdrianVill20/SE-RoadTrafficViolationDetector.git)
 cd SE-RoadTrafficViolationDetector
 
 ```
