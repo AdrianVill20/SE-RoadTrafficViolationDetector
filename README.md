@@ -59,6 +59,9 @@ Install the required libraries for TensorFlow and OpenCV.
 ```bash
 pip install tensorflow opencv-python
 ```
+```bash
+python -m pip install --upgrade pip setuptools wheel
+```
 To install requirements go to directory cd src
 ```bash 
  pip install -r requirements.txt
