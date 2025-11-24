@@ -39,7 +39,7 @@ python3.10 -m venv tfenv
 ### 3. Activate the Environment
 Windows (PowerShell):
 ```bash
-python3.10 -m venv tfenv
+py -3.11 -m venv tfenv
 ```
 macOS/Linux:
 ```bash
