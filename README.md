@@ -35,6 +35,11 @@ It’s recommended to isolate dependencies using a virtual environment.
 ```bash
 python3.10 -m venv tfenv
 ```
+After that, check the version
+```bash
+python --version
+```
+You should see Python 3.11.x or 3.10.x
 
 ### 3. Activate the Environment
 Windows (PowerShell):
