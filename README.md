@@ -18,6 +18,8 @@ Currently, the project is configured to **initialize and display real-time objec
 
 ---
 
+#This project requires Python 3.10 or 3.11.
+
 ###  Installation & Setup  
 
 #### 1. Clone or Download the Repository  
