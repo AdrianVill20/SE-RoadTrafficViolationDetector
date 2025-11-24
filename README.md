@@ -18,6 +18,8 @@ Currently, the project is configured to **initialize and display real-time objec
 
 ---
 
+# This project requires Python 3.10 or 3.11.
+
 ###  Installation & Setup  
 
 #### 1. Clone or Download the Repository  
@@ -31,13 +33,13 @@ cd SE-RoadTrafficViolationDetector
 It’s recommended to isolate dependencies using a virtual environment.
 
 ```bash
-python -m venv tfenv
+python3.10 -m venv tfenv
 ```
 
 ### 3. Activate the Environment
 Windows (PowerShell):
 ```bash
-tfenv\Scripts\activate
+python3.10 -m venv tfenv
 ```
 macOS/Linux:
 ```bash
@@ -49,11 +51,16 @@ Install the required libraries for TensorFlow and OpenCV.
 ```bash
 pip install tensorflow opencv-python
 ```
+To install requirements go to directory cd src
+```bash 
+ pip install -r requirements.txt
+```
 (Optional but recommended:)
 Verify the installations:
 ```bash
 python -c "import cv2; print('OpenCV', cv2.__version__)"
 python -c "import tensorflow as tf; print('TensorFlow', tf.__version__)"
+python -c "import tensorflow_hub as hub; print('TensorFlow Hub', hub.__version__)"
 ```
 
 ## Running the Object Detection Script
