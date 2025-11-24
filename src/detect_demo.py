@@ -5,7 +5,7 @@ import tensorflow as tf
 
 # Load pre-trained model (SSD MobileNet)
 print("Loading model...")
-detector = hub.load("https://tfhub.dev/tensorflow/ssd_mobilenet_v2/2")
+detector = hub.load("https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1")
 print("Model loaded successfully!")
 
 # Start webcam
