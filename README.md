@@ -55,9 +55,6 @@ You should see Python 3.11.x or 3.10.x
 ### 4. Install Dependencies
 Install the required libraries for TensorFlow and OpenCV.
 ```bash
-pip install tensorflow opencv-python
-```
-```bash
 python -m pip install --upgrade pip setuptools wheel
 ```
 To install requirements go to directory cd src
