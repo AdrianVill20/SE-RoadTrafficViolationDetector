@@ -17,8 +17,11 @@ The project’s ultimate goal is to automate the monitoring of road activity by:
 Currently, the project is configured to **initialize and display real-time object detection using OpenCV and TensorFlow**.  
 
 ---
+##  Requirements
+- **Python 3.10 or 3.11**
 
-# This project requires Python 3.10 or 3.11.
+---
+
 
 ###  Installation & Setup  
 
@@ -47,7 +50,7 @@ macOS/Linux:
 ```bash
 source tfenv/bin/activate
 ```
-After that check the python version
+Check the python version
 ```bash
 python --version
 ```
