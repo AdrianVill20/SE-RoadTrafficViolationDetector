@@ -95,6 +95,18 @@ python motion_detector.py
 ```
 This script should highlight moving objects in the camera feed.
 
+🪖 Bike Helmet Detection using YOLOv8 and OpenCV
+
+Bike helmets are essential for safety, but not everyone wears them. Traffic personnel often have difficulty monitoring every rider on the road. This project demonstrates how to automate helmet detection using Computer Vision and Deep Learning, specifically YOLOv8 and OpenCV.
+
+This project includes:
+
+Helmet detection in images
+
+Real-time helmet detection in video or webcam feed
+
+A trained YOLOv8 model using a custom dataset
+
 # Contributors
 
 Christian Demetillo<br>
