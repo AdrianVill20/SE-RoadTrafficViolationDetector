@@ -154,6 +154,33 @@ Open Colab → Runtime → Change runtime → Select T4 GPU
 
 Verify GPU:
 
+!nvidia-smi
+
+Install Ultralytics:
+
+!pip install ultralytics
+
+3. Upload Dataset to Google Drive
+
+My Drive/Datasets/BikeHelmet
+
+Edit data.yaml to: ../drive/MyDrive/Datasets/BikeHelmet
+
+4. Mount Google Drive
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+5. Train YOLOv8
+
+!yolo task=detect mode=train model=yolov8l.pt data=../content/drive/MyDrive/Datasets/BikeHelmet/data.yaml epochs=100 imgsz=640
+
+Training takes ~1–2 hours.
+
+Download best.pt from:
+runs/detect/train/weights/best.pt
+
+
 # Contributors
 
 Christian Demetillo<br>
