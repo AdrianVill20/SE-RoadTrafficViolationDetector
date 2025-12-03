@@ -95,7 +95,7 @@ python motion_detector.py
 ```
 This script should highlight moving objects in the camera feed.
 
-## 🪖 Bike Helmet Detection using YOLOv8 and OpenCV
+### 🪖 Bike Helmet Detection using YOLOv8 and OpenCV
 
 Bike helmets are essential for safety, but not everyone wears them. Traffic personnel often have difficulty monitoring every rider on the road. This project demonstrates how to automate helmet detection using Computer Vision and Deep Learning, specifically YOLOv8 and OpenCV.
 
@@ -121,7 +121,7 @@ Simple Python implementation using OpenCV
 
 Make sure you have Python 3.6+ installed.
 Install all dependencies:
-
+```bash
 pip install gitpython>=3.1.30
 pip install matplotlib>=3.3
 pip install numpy>=1.23.5
@@ -142,6 +142,7 @@ pip install setuptools>=65.5.1
 pip install filterpy
 pip install scikit-image
 pip install lap
+```
 
 ## 🛈 Training the YOLOv8 Model (Custom Dataset)
 1. Download Dataset
@@ -154,16 +155,17 @@ Open Colab → Runtime → Change runtime → Select T4 GPU
 
 Verify GPU:
 
+```bash
 !nvidia-smi
-
+```
 Install Ultralytics:
-
+```bash
 !pip install ultralytics
-
+```
 3. Upload Dataset to Google Drive
-
+```bash
 My Drive/Datasets/BikeHelmet
-
+```
 Edit data.yaml to: ../drive/MyDrive/Datasets/BikeHelmet
 
 4. Mount Google Drive
@@ -172,15 +174,17 @@ from google.colab import drive
 drive.mount('/content/drive')
 
 5. Train YOLOv8
-
+```bash
 !yolo task=detect mode=train model=yolov8l.pt data=../content/drive/MyDrive/Datasets/BikeHelmet/data.yaml epochs=100 imgsz=640
-
+```
 Training takes ~1–2 hours.
 
 Download best.pt from:
+```bash
 runs/detect/train/weights/best.pt
-
+```
 ## 📁 Project Folder Structure
+```bash
 BikeHelmetDetector/
 ├── Weights/
 │   └── best.pt
@@ -192,15 +196,15 @@ BikeHelmetDetector/
 │   └── riders_5.jpg
 │   └── riders_6.jpg
 ├── helmet_detector.py
-
+```
 ## ▶️ Running the Helmet Detector
 
 Place your best.pt file in the Weights/ folder.
 
 Run:
-
+```bash
 python helmet_detector.py
-
+```
 This script will:
 
 Load your YOLO model
