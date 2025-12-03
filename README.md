@@ -107,6 +107,21 @@ Real-time helmet detection in video or webcam feed
 
 A trained YOLOv8 model using a custom dataset
 
+⭐ Features
+
+Detects whether a motorcycle rider is wearing a helmet
+
+Works on images, video files, and webcams
+
+Uses YOLOv8 (Ultralytics)
+
+Simple Python implementation using OpenCV
+
+📦 Requirements
+
+Make sure you have Python 3.6+ installed.
+Install all dependencies:
+
 # Contributors
 
 Christian Demetillo<br>
