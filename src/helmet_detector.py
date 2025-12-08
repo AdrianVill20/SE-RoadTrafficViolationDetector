@@ -1,64 +1,64 @@
-# helmet_detector.py
 import cv2
-import cvzone
-import time
 import os
 from ultralytics import YOLO
+import easyocr
+from datetime import datetime
 
 class HelmetDetector:
-    def __init__(self):
-        self.model = YOLO("Weights/best.pt")
-        self.classNames = ['With Helmet', 'Without Helmet']
-        self.cap = cv2.VideoCapture(0)
+    def __init__(self, camera_index=0):
         self.running = False
-
-        # Create folder for captured images
-        self.save_path = "Captured_No_Helmet"
+        self.save_path = "captures"
         os.makedirs(self.save_path, exist_ok=True)
 
-        # To prevent saving too many pictures at once
-        self.last_capture_time = 0  
-        self.capture_delay = 2  # seconds
+        # Load models
+        self.helmet_model = YOLO("Weights/best.pt")
+        self.plate_model = YOLO("Weights/plate.pt")
+        self.ocr = easyocr.Reader(['en'], gpu=False)
+
+        # Camera
+        self.cap = cv2.VideoCapture(camera_index)
 
     def get_frame(self):
-        """Return processed frame from webcam."""
         if not self.running:
             return None
 
-        success, img = self.cap.read()
-        if not success:
+        ret, frame = self.cap.read()
+        if not ret:
             return None
 
-        results = self.model(img, stream=True)
+        # --- HELMET DETECTION ---
+        results = self.helmet_model(frame)
         for r in results:
             for box in r.boxes:
-                x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
-                w, h = x2 - x1, y2 - y1
+                cls = int(box.cls)
+                x1, y1, x2, y2 = map(int, box.xyxy[0])
 
-                cvzone.cornerRect(img, (x1, y1, w, h))
-                conf = float(box.conf[0])
-                cls = int(box.cls[0])
+                if cls == 1:  # Without Helmet
+                    roi = frame[max(0, y1-20):y2+50, max(0, x1-50):x2+50]
 
-                label = self.classNames[cls]
-                cvzone.putTextRect(img,
-                                   f"{label} {conf:.2f}",
-                                   (x1, max(30, y1)))
+                    # --- PLATE DETECTION ---
+                    plate_results = self.plate_model(roi)
+                    for p in plate_results:
+                        for pb in p.boxes:
+                            px1, py1, px2, py2 = map(int, pb.xyxy[0])
+                            plate_crop = roi[py1:py2, px1:px2]
 
-                # ----------------------------------------------
-                # SAVE IMAGE IF WITHOUT HELMET
-                # ----------------------------------------------
-                if label == "Without Helmet":
-                    current_time = time.time()
-                    if current_time - self.last_capture_time >= self.capture_delay:
+                            # --- OCR ---
+                            ocr_result = self.ocr.readtext(plate_crop)
+                            if len(ocr_result) > 0:
+                                text = ocr_result[0][1]
+                                timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                save_file = os.path.join(self.save_path, f"{text}_{timestamp}.jpg")
+                                cv2.imwrite(save_file, plate_crop)
 
-                        filename = f"{self.save_path}/no_helmet_{int(time.time())}.jpg"
-                        cv2.imwrite(filename, img)
-                        print(f"❗ Saved image: {filename}")
+                                # Draw rectangles + label on frame
+                                cv2.rectangle(frame, (x1, y1), (x2, y2), (0,0,255), 2)
+                                cv2.putText(frame, f"Helmet: NO", (x1, y1-10),
+                                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0,0,255), 2)
+                                cv2.putText(frame, f"Plate: {text}", (x1, y2+20),
+                                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255,0,0), 2)
 
-                        # Update last capture time
-                        self.last_capture_time = current_time
-
-        return img
+        return frame
 
     def release(self):
         self.cap.release()
