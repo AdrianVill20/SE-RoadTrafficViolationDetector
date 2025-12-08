@@ -64,6 +64,10 @@ To install requirements go to directory cd src
 ```bash 
  pip install -r requirements.txt
 ```
+After that install this:
+```bash
+pip install ultralytics cvzone opencv-python numpy easyocr
+```
 (Optional but recommended:)
 Verify the installations:
 ```bash
