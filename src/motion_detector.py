@@ -1,30 +1,38 @@
+# helmet_detector.py
 import cv2
+import cvzone
+from ultralytics import YOLO
 
-cap = cv2.VideoCapture(0)
-ret, prev = cap.read()
-prev_gray = cv2.cvtColor(prev, cv2.COLOR_BGR2GRAY)
+class HelmetDetector:
+    def __init__(self):
+        self.model = YOLO("Weights/best.pt")
+        self.classNames = ['With Helmet', 'Without Helmet']
+        self.cap = cv2.VideoCapture(0)
+        self.running = False
 
-while True:
-    ret, frame = cap.read()
-    if not ret:
-        break
+    def get_frame(self):
+        """Return processed frame from webcam."""
+        if not self.running:
+            return None
 
-    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    diff = cv2.absdiff(prev_gray, gray)
-    _, thresh = cv2.threshold(diff, 30, 255, cv2.THRESH_BINARY)
-    count = cv2.countNonZero(thresh)
+        success, img = self.cap.read()
+        if not success:
+            return None
 
-    # simple rule: if count (motion pixels) above threshold → movement
-    if count > 2000:
-        cv2.putText(frame, "Movement detected", (10,30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 2)
+        results = self.model(img, stream=True)
+        for r in results:
+            for box in r.boxes:
+                x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
+                w, h = x2 - x1, y2 - y1
 
-    cv2.imshow("Motion Detector - q to quit", frame)
-    cv2.imshow("Thresh", thresh)
+                cvzone.cornerRect(img, (x1, y1, w, h))
+                conf = float(box.conf[0])
+                cls = int(box.cls[0])
+                cvzone.putTextRect(img,
+                                   f"{self.classNames[cls]} {conf:.2f}",
+                                   (x1, max(30, y1)))
 
-    prev_gray = gray.copy()
+        return img
 
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
-
-cap.release()
-cv2.destroyAllWindows()
+    def release(self):
+        self.cap.release()
