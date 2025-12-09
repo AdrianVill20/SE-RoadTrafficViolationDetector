@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Violation Dashboard</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Traffic Violation Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>License Plate</th>
+                <th>Violation</th>
+                <th>Timestamp</th>
+                <th>Captured Image</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for violation in violations %}
+                <tr>
+                    <td>{{ violation.license_plate }}</td>
+                    <td>{{ violation.violation }}</td>
+                    <td>{{ violation.timestamp }}</td>
+                    <td>
+                        <!-- View Image Link -->
+                        <a href="{{ url_for('send_image', filename='violations_images/' + violation.image_path) }}" target="_blank">
+                            View Image
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">No violations detected yet.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

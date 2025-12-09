@@ -1,0 +1,175 @@
+[
+    {
+        "license_plate": "G588JM",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:05:54"
+    },
+    {
+        "license_plate": "G588JM",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:08:56",
+        "image_path": "violations_images/violation_1765224536.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:50",
+        "image_path": "violations_images/violation_1765224590.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:51",
+        "image_path": "violations_images/violation_1765224591.jpg"
+    },
+    {
+        "license_plate": "6588JN",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:51",
+        "image_path": "violations_images/violation_1765224591.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:52",
+        "image_path": "violations_images/violation_1765224592.jpg"
+    },
+    {
+        "license_plate": "G588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:52",
+        "image_path": "violations_images/violation_1765224592.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:53",
+        "image_path": "violations_images/violation_1765224593.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:54",
+        "image_path": "violations_images/violation_1765224594.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:54",
+        "image_path": "violations_images/violation_1765224594.jpg"
+    },
+    {
+        "license_plate": "6588JM",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:55",
+        "image_path": "violations_images/violation_1765224595.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:09:58",
+        "image_path": "violations_images/violation_1765224598.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:00",
+        "image_path": "violations_images/violation_1765224600.jpg"
+    },
+    {
+        "license_plate": "G588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:02",
+        "image_path": "violations_images/violation_1765224602.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:04",
+        "image_path": "violations_images/violation_1765224604.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:06",
+        "image_path": "violations_images/violation_1765224606.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:08",
+        "image_path": "violations_images/violation_1765224608.jpg"
+    },
+    {
+        "license_plate": "G588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:08",
+        "image_path": "violations_images/violation_1765224608.jpg"
+    },
+    {
+        "license_plate": "6588JM",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:09",
+        "image_path": "violations_images/violation_1765224609.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:10",
+        "image_path": "violations_images/violation_1765224610.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:10",
+        "image_path": "violations_images/violation_1765224610.jpg"
+    },
+    {
+        "license_plate": "G588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:10:11",
+        "image_path": "violations_images/violation_1765224611.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:12:51",
+        "image_path": "violations_images/violation_1765224771.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:14:07",
+        "image_path": "violations_images/violation_1765224847.jpg"
+    },
+    {
+        "license_plate": "G588JM",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 20:26:35",
+        "image_path": "violations_images/violation_1765225595.jpg"
+    },
+    {
+        "license_plate": "G588JM",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 21:18:07",
+        "image_path": "violations_images/violation_1765228687.jpg"
+    },
+    {
+        "license_plate": "G588JM",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 21:27:03",
+        "image_path": "violations_images/violation_1765229223.jpg"
+    },
+    {
+        "license_plate": "G588JM",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-08 21:57:46",
+        "image_path": "violations_images/violation_1765231066.jpg"
+    },
+    {
+        "license_plate": "G588JM",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-09 04:55:39",
+        "image_path": "violations_images/violation_1765256139.jpg"
+    }
+]

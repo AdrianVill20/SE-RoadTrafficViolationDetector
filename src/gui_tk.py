@@ -1,16 +1,17 @@
-# gui_tk_multi.py
 import tkinter as tk
-from tkinter import Button, Label, Frame, Scrollbar, Canvas
+from tkinter import Button, Label, Frame, Scrollbar, Canvas, filedialog
 from PIL import Image, ImageTk
 import cv2
 import os
 from helmet_detector import HelmetDetector
+import time  # <-- Add this import
 
 class App:
     def __init__(self, window):
         self.window = window
-        self.window.title("Helmet Detector")
-        self.window.geometry("900x700")
+        self.window.title("Helmet & License Plate Detection")
+        self.window.geometry("900x700")  # Set an initial window size
+        self.window.resizable(True, True)  # Allow resizing but with limits
 
         # Helmet detector
         self.detector = HelmetDetector()
@@ -39,8 +40,16 @@ class App:
         self.pages["detection"] = frame
 
         self.video_label = Label(frame)
-        self.video_label.pack()
+        self.video_label.pack(padx=10, pady=10)
 
+        # Add buttons for uploading image and video
+        self.upload_image_button = Button(frame, text="Upload Image", command=self.upload_image)
+        self.upload_image_button.pack(side="left", padx=10, pady=10)
+
+        self.upload_video_button = Button(frame, text="Upload Video", command=self.upload_video)
+        self.upload_video_button.pack(side="left", padx=10, pady=10)
+
+        # Start and Stop buttons for detection
         self.start_btn = Button(frame, text="Start Detection", command=self.start)
         self.start_btn.pack(side="left", padx=10, pady=10)
 
@@ -65,7 +74,7 @@ class App:
         canvas.bind('<Configure>', lambda e: canvas.configure(scrollregion=canvas.bbox("all")))
 
         self.logs_frame = Frame(canvas)
-        canvas.create_window((0,0), window=self.logs_frame, anchor="nw")
+        canvas.create_window((0, 0), window=self.logs_frame, anchor="nw")
 
         # Refresh button
         Button(frame, text="Refresh Logs", command=self.load_logs).pack(pady=5)
@@ -85,25 +94,137 @@ class App:
     # Detection Controls
     # -----------------------------
     def start(self):
-        self.detector.running = True
-        self.running = True
-        self.update_frame()
+        # Check if an image or video is uploaded, else start the webcam
+        if hasattr(self, 'cap') and self.cap.isOpened():
+            self.running = True
+            self.update_frame()
+        else:
+            # If no video is uploaded, run the webcam detection
+            self.detector.running = True
+            self.running = True
+            self.update_frame()
 
     def stop(self):
+        if hasattr(self, 'cap'):
+            self.cap.release()
         self.detector.running = False
         self.running = False
 
     def update_frame(self):
         if self.running:
-            frame = self.detector.get_frame()
-            if frame is not None:
-                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-                img = Image.fromarray(frame)
-                imgtk = ImageTk.PhotoImage(image=img)
-                self.video_label.imgtk = imgtk
-                self.video_label.configure(image=imgtk)
+            if hasattr(self, 'cap') and self.cap.isOpened():  # Process video
+                ret, frame = self.cap.read()
+                if ret and frame is not None:
+                    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+                    # Process frame using the detector
+                    frame = self.detector.detect(frame)  # Use the detect method from HelmetDetector
+                    frame = self.resize_frame(frame)  # Resize the frame to fit window
+
+                    img = Image.fromarray(frame)
+                    imgtk = ImageTk.PhotoImage(image=img)
+                    self.video_label.imgtk = imgtk
+                    self.video_label.configure(image=imgtk)
+
+                    # Save the processed video frame for logs
+                    self.save_log_frame(frame)
+
+                else:
+                    print("Failed to capture video frame or reached the end of video.")
+                    self.stop_video()  # Stop if video ends or no frame is available
+
+            else:  # Process webcam feed for helmet detection
+                frame = self.detector.get_frame()  # Get the frame from webcam
+                if frame is not None:
+                    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                    frame = self.resize_frame(frame)  # Resize the frame to fit window
+                    img = Image.fromarray(frame)
+                    imgtk = ImageTk.PhotoImage(image=img)
+                    self.video_label.imgtk = imgtk
+                    self.video_label.configure(image=imgtk)
+
+                    # Save the processed webcam frame for logs
+                    self.save_log_frame(frame)
 
             self.window.after(30, self.update_frame)
+
+    def resize_frame(self, frame):
+        """Resize the frame to fit within the window."""
+        if frame is None:  # Check if frame is None
+            return frame
+
+        # Get the window's width and height
+        max_width = self.window.winfo_width() - 40  # 40px padding
+        max_height = self.window.winfo_height() - 150  # Some padding for the buttons
+
+        # Resize the frame
+        height, width, _ = frame.shape
+        aspect_ratio = width / height
+
+        if width > max_width:
+            width = max_width
+            height = int(width / aspect_ratio)
+
+        if height > max_height:
+            height = max_height
+            width = int(height * aspect_ratio)
+
+        # Resize the image while maintaining the aspect ratio
+        resized_frame = cv2.resize(frame, (width, height))
+        return resized_frame
+
+    def save_log_frame(self, frame):
+        """Save the processed frame for logs."""
+        if frame is not None:
+            save_path = "logs"
+            os.makedirs(save_path, exist_ok=True)
+            filename = os.path.join(save_path, f"frame_{int(time.time())}.jpg")
+            cv2.imwrite(filename, frame)
+            print(f"Saved frame to log: {filename}")
+
+    # -----------------------------
+    # Image and Video Upload
+    # -----------------------------
+    def upload_image(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Image files", "*.jpg;*.jpeg;*.png")])
+        if file_path:
+            self.process_image(file_path)
+
+    def upload_video(self):
+        file_path = filedialog.askopenfilename(filetypes=[("Video files", "*.mp4;*.avi;*.mov")])
+        if file_path:
+            self.process_video(file_path)
+
+    def process_image(self, file_path):
+        # Load the image
+        image = cv2.imread(file_path)
+        
+        # Process the image using the detect() method
+        frame = self.detector.detect(image)  # Use the detect method from HelmetDetector
+
+        # Convert the processed frame to RGB for Tkinter display
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+
+        # Resize the image to fit within the window
+        frame = self.resize_frame(frame)
+
+        # Display the processed image in Tkinter
+        img = Image.fromarray(frame)
+        photo = ImageTk.PhotoImage(image=img)
+        self.video_label.config(image=photo)
+        self.video_label.image = photo
+
+        # Save the processed image to logs
+        self.save_log_frame(frame)
+
+    def process_video(self, file_path):
+        self.cap = cv2.VideoCapture(file_path)
+        self.running = True
+        self.update_frame()
+
+    def stop_video(self):
+        self.cap.release()
+        self.running = False
 
     # -----------------------------
     # Logs
@@ -113,7 +234,7 @@ class App:
         for widget in self.logs_frame.winfo_children():
             widget.destroy()
 
-        folder = self.detector.save_path
+        folder = "logs"  # Logs folder
         if not os.path.exists(folder):
             return
 
@@ -130,6 +251,8 @@ class App:
     # Close
     # -----------------------------
     def on_close(self):
+        if hasattr(self, 'cap'):
+            self.cap.release()
         self.detector.release()
         self.window.destroy()
 
