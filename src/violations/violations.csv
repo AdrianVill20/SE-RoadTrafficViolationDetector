@@ -1,0 +1,11 @@
+timestamp,plate_text,person_image,plate_image,ocr_confidence
+20251208_200623,09,violations\persons\person_09_20251208_200623.jpg,violations\plates\plate_09_20251208_200623.jpg,0.47
+20251208_200626,2=-,violations\persons\person_2-_20251208_200626.jpg,violations\plates\plate_2-_20251208_200626.jpg,0.12
+20251208_200628,"2""",violations\persons\person_2_20251208_200628.jpg,violations\plates\plate_2_20251208_200628.jpg,0.81
+20251208_200634,"""09cc-",violations\persons\person_09cc-_20251208_200634.jpg,violations\plates\plate_09cc-_20251208_200634.jpg,0.03
+20251208_200636,"""0voc",violations\persons\person_0voc_20251208_200636.jpg,violations\plates\plate_0voc_20251208_200636.jpg,0.04
+20251208_200638,2€ -,violations\persons\person_2-_20251208_200638.jpg,violations\plates\plate_2-_20251208_200638.jpg,0.38
+20251208_200644,27,violations\persons\person_27_20251208_200644.jpg,violations\plates\plate_27_20251208_200644.jpg,0.15
+20251208_200648,09at_,violations\persons\person_09at__20251208_200648.jpg,violations\plates\plate_09at__20251208_200648.jpg,0.16
+20251208_200650,0q,violations\persons\person_0q_20251208_200650.jpg,violations\plates\plate_0q_20251208_200650.jpg,0.18
+20251208_200659,9 -,violations\persons\person_9-_20251208_200659.jpg,violations\plates\plate_9-_20251208_200659.jpg,0.25
