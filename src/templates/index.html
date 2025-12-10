@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Traffic Violation Dashboard</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Inter", Arial, sans-serif;
+        background: #eef2ff;
+        display: flex;
+        height: 100vh;
+        color: #1f2a44;
+    }
+
+    /* ---------------------- SIDEBAR ---------------------- */
+    .sidebar {
+        width: 260px;
+        background: #13487D;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        padding: 25px 20px;
+        border-top-right-radius: 12px;
+        border-bottom-right-radius: 12px;
+        position: relative;
+    }
+
+    .sidebar-logo {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 40px;
+    }
+
+    .sidebar-logo img {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: white;
+        padding: 5px;
+    }
+
+    .sidebar-logo h2 {
+        font-size: 20px;
+        line-height: 1.2;
+    }
+
+    .nav-section-title {
+        font-size: 12px;
+        opacity: 0.7;
+        margin-bottom: 10px;
+        margin-left: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .nav-item {
+        padding: 12px 18px;
+        margin-bottom: 10px;
+        background: #132A4B;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .nav-item:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    .logout-btn {
+        margin-top: 20px;
+        padding: 12px;
+        text-align: center;
+        background: #cc3030;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 15px;
+        font-weight: 500;
+        margin-top: auto;
+    }
+
+    .logout-btn:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    /* ---------------------- MAIN CONTENT ---------------------- */
+    .main {
+        flex: 1;
+        padding: 30px 45px;
+        overflow-y: auto;
+    }
+
+    .header-title {
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 18px;
+    }
+
+    /* ---------------------- FILTER CARD ---------------------- */
+    .filters {
+        background: white;
+        padding: 18px 20px;
+        border-radius: 14px;
+        margin-bottom: 25px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+    }
+
+    .filters form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .filters input,
+    .filters select {
+        padding: 10px 12px;
+        border: 1px solid #cfd6e6;
+        border-radius: 8px;
+        font-size: 14px;
+        background: #f8f9ff;
+    }
+
+    .filters button {
+        padding: 10px 20px;
+        background: #1A73E8;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .filters button:hover {
+        background: #1f58c5;
+    }
+
+    /* ---------------------- TABLE ---------------------- */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+    }
+
+    th {
+        background: #eef3ff;
+        padding: 14px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 600;
+        color: #364366;
+    }
+
+    td {
+        padding: 12px;
+        text-align: center;
+        font-size: 14px;
+        border-bottom: 1px solid #f0f3fb;
+    }
+
+    tr:hover {
+        background: #fafbff;
+    }
+
+    img.thumbnail {
+        width: 110px;
+        border-radius: 8px;
+        border: 1px solid #dce3f5;
+    }
+
+    /* ---------------------- PAGINATION ---------------------- */
+    .pagination {
+        margin-top: 25px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .pagination a {
+        padding: 9px 16px;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        text-decoration: none;
+    }
+
+    .pagination a:hover {
+        background: #ecf0ff;
+    }
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="sidebar-logo">
+        <img src="https://cdn-icons-png.flaticon.com/512/483/483361.png">
+        <h2>Road Traffic<br>Violation System</h2>
+    </div>
+
+    <div class="nav-section-title">Menu</div>
+    <div class="nav-item active">Dashboard</div>
+
+    <!-- LOGOUT BUTTON -->
+    <a href="/logout" class="logout-btn">Logout</a>
+
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+    <h1 class="header-title">Traffic Violation Records</h1>
+
+    <!-- FILTERS -->
+    <div class="filters">
+        <form method="GET">
+            <input type="text" name="search" placeholder="Search plate or violation" value="{{ search }}">
+
+            <label>From:</label>
+            <input type="date" name="start" value="{{ start_date }}">
+
+            <label>To:</label>
+            <input type="date" name="end" value="{{ end_date }}">
+
+            <select name="sort">
+                <option value="timestamp_desc" {% if sort=='timestamp_desc' %}selected{% endif %}>Newest First</option>
+                <option value="timestamp_asc" {% if sort=='timestamp_asc' %}selected{% endif %}>Oldest First</option>
+                <option value="plate_asc" {% if sort=='plate_asc' %}selected{% endif %}>Plate A → Z</option>
+                <option value="plate_desc" {% if sort=='plate_desc' %}selected{% endif %}>Plate Z → A</option>
+            </select>
+
+            <button type="submit">Apply</button>
+        </form>
+    </div>
+
+    <!-- TABLE -->
+    <table>
+        <thead>
+            <tr>
+                <th>License Plate</th>
+                <th>Violation</th>
+                <th>Timestamp</th>
+                <th>Image</th>
+                <th>Open</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for violation in violations %}
+            <tr>
+                <td>{{ violation.license_plate }}</td>
+                <td>{{ violation.violation }}</td>
+                <td>{{ violation.timestamp }}</td>
+                <td>
+                    {% if violation.image_path %}
+                        <img class="thumbnail" src="{{ url_for('send_image', filename=violation.image_path) }}">
+                    {% else %}
+                        No image
+                    {% endif %}
+                </td>
+                <td>
+                    {% if violation.image_path %}
+                        <a href="{{ url_for('send_image', filename=violation.image_path) }}" target="_blank">View</a>
+                    {% else %}
+                        -
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr><td colspan="5">No violations found.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- PAGINATION -->
+    <div class="pagination">
+        {% if has_prev %}
+            <a href="?page={{ page - 1 }}&search={{ search }}&start={{ start_date }}&end={{ end_date }}&sort={{ sort }}">&laquo; Prev</a>
+        {% endif %}
+
+        Page {{ page }} ({{ total }} results)
+
+        {% if has_next %}
+            <a href="?page={{ page + 1 }}&search={{ search }}&start={{ start_date }}&end={{ end_date }}&sort={{ sort }}">Next &raquo;</a>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>

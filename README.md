@@ -95,6 +95,124 @@ python motion_detector.py
 ```
 This script should highlight moving objects in the camera feed.
 
+### 🪖 Bike Helmet Detection using YOLOv8 and OpenCV
+
+Bike helmets are essential for safety, but not everyone wears them. Traffic personnel often have difficulty monitoring every rider on the road. This project demonstrates how to automate helmet detection using Computer Vision and Deep Learning, specifically YOLOv8 and OpenCV.
+
+This project includes:
+
+Helmet detection in images
+
+Real-time helmet detection in video or webcam feed
+
+A trained YOLOv8 model using a custom dataset
+
+## ⭐ Features
+
+Detects whether a motorcycle rider is wearing a helmet
+
+Works on images, video files, and webcams
+
+Uses YOLOv8 (Ultralytics)
+
+Simple Python implementation using OpenCV
+
+## 📦 Requirements
+
+Make sure you have Python 3.6+ installed.
+Install all dependencies:
+```bash
+pip install gitpython>=3.1.30
+pip install matplotlib>=3.3
+pip install numpy>=1.23.5
+pip install opencv-python>=4.1.1
+pip install pillow>=10.3.0
+pip install psutil
+pip install PyYAML>=5.3.1
+pip install requests>=2.32.0
+pip install scipy>=1.4.1
+pip install thop>=0.1.1
+pip install torch>=1.8.0
+pip install torchvision>=0.9.0
+pip install tqdm>=4.64.0
+pip install ultralytics>=8.2.34
+pip install pandas>=1.1.4
+pip install seaborn>=0.11.0
+pip install setuptools>=65.5.1
+pip install filterpy
+pip install scikit-image
+pip install lap
+```
+
+## 🛈 Training the YOLOv8 Model (Custom Dataset)
+1. Download Dataset
+
+Get the bike helmet dataset from Roboflow and unzip it.
+
+2. Train on Google Colab
+
+Open Colab → Runtime → Change runtime → Select T4 GPU
+
+Verify GPU:
+
+```bash
+!nvidia-smi
+```
+Install Ultralytics:
+```bash
+!pip install ultralytics
+```
+3. Upload Dataset to Google Drive
+```bash
+My Drive/Datasets/BikeHelmet
+```
+Edit data.yaml to: ../drive/MyDrive/Datasets/BikeHelmet
+
+4. Mount Google Drive
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+5. Train YOLOv8
+```bash
+!yolo task=detect mode=train model=yolov8l.pt data=../content/drive/MyDrive/Datasets/BikeHelmet/data.yaml epochs=100 imgsz=640
+```
+Training takes ~1–2 hours.
+
+Download best.pt from:
+```bash
+runs/detect/train/weights/best.pt
+```
+## 📁 Project Folder Structure
+```bash
+BikeHelmetDetector/
+├── Weights/
+│   └── best.pt
+├── Media/
+│   └── riders_1.jpg
+│   └── riders_2.jpg
+│   └── riders_3.jpg
+│   └── riders_4.jpg
+│   └── riders_5.jpg
+│   └── riders_6.jpg
+├── helmet_detector.py
+```
+## ▶️ Running the Helmet Detector
+
+Place your best.pt file in the Weights/ folder.
+
+Run:
+```bash
+python helmet_detector.py
+```
+This script will:
+
+Load your YOLO model
+
+Run detection on images in the Media folder
+
+Display bounding boxes showing riders and helmets
+
 # Contributors
 
 Christian Demetillo<br>
