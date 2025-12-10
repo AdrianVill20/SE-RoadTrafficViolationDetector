@@ -220,5 +220,11 @@
         "violation": "Helmet Violation",
         "timestamp": "2025-12-10 01:51:34",
         "image_path": "violation_1765302693.jpg"
+    },
+    {
+        "license_plate": "6588JH",
+        "violation": "Helmet Violation",
+        "timestamp": "2025-12-10 14:49:39",
+        "image_path": "violation_1765349379.jpg"
     }
 ]
