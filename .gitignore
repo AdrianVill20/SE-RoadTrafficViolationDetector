@@ -1,0 +1,10 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Logs and images
+logs/
+violations_images/
+
+# Virtual environment
+tfenv/
